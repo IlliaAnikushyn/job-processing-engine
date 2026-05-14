@@ -1,0 +1,9 @@
+{
+  "name": "job-processing-engine",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "author": "Illia Anikushyn",
+  "license": "MIT",
+  "dependencies": {}
+}
