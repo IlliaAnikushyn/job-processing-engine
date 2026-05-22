@@ -1,5 +1,6 @@
 import {
-    BiDirectionalPriorityQueue, createLogDecorator
+    BiDirectionalPriorityQueue, createLogDecorator,
+    BaseHttpClient, AuthProxy, GitHubService
 } from '../lib/src/index.js';
 
 async function runDemo() {
@@ -13,6 +14,11 @@ async function runDemo() {
     const log = createLogDecorator('INFO');
     const processData = log(function processData(data) { return `Processed ${data}`; });
     processData("Sample Core Data");
+
+    const tokenProvider = { getToken: () => "valid-jwt", refreshToken: async () => "new-jwt" };
+    const authProxy = new AuthProxy(new BaseHttpClient(), tokenProvider);
+    const githubService = new GitHubService(authProxy);
+    await githubService.getUserData("IlliaAnikushyn");
 }
 
 runDemo();
