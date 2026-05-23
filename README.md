@@ -26,5 +26,8 @@
    ```bash
    cd demo
    npm install
+   ```
 2. Запустіть демонстраційний файл:
+   ```bash
    node index.js
+   ```
