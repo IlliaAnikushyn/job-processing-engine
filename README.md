@@ -13,19 +13,20 @@ The project is strictly separated into a core library and a client implementatio
 ```text
 job-processing-engine/
 ├── lib/
-│   └── src/
-│       ├── asyncArray.js   # Promise & Callback async mappers
-│       ├── events.js       # Custom Event Emitter
-│       ├── index.js        # Main module exports
-│       ├── logger.js       # Decorator patterns
-│       ├── proxy.js        # Auth & HTTP Proxy
-│       ├── queue.js        # Priority Queue (O(1) optimization)
-│       ├── stream.js       # Reactive Data Streamer
-│       └── utils.js        # Generators & LRU Cache
+│   ├── src/
+│   │   ├── asyncArray.js   # Promise & Callback async mappers
+│   │   ├── events.js       # Custom Event Emitter
+│   │   ├── index.js        # Main module exports
+│   │   ├── logger.js       # Decorator patterns
+│   │   ├── proxy.js        # Auth & HTTP Proxy
+│   │   ├── queue.js        # Priority Queue (O(1) optimization)
+│   │   ├── stream.js       # Reactive Data Streamer
+│   │   └── utils.js        # Generators & LRU Cache
+│   └── package.json        # Library manifest
 ├── demo/
 │   ├── index.js            # Client application implementing the engine
-│   └── package.json
-├── package.json
+│   └── package.json        # Client manifest (imports lib)
+├── .gitignore
 └── README.md
 ```
 
