@@ -1,33 +1,65 @@
-# Job Processing Engine (Курсовий проєкт)
+# Job Processing Engine
 
-Цей проєкт представляє собою комплексну серверну бібліотеку для обробки завдань (Job Processing Engine), яка об'єднує імплементацію лабораторних робіт 1-9. 
+![Node.js](https://img.shields.io/badge/Node.js-Execution%20Environment-339933?style=flat-square&logo=node.js)
+![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
+![Architecture](https://img.shields.io/badge/Architecture-Modular-ff69b4?style=flat-square)
 
-## Архітектура проєкту
+A comprehensive, asynchronous job processing and data streaming engine. This repository demonstrates core software engineering principles, including advanced algorithmic queues, reactive event streaming, and custom proxy architectures, built entirely with native JavaScript.
 
-Проєкт розділений на дві основні частини згідно з кращими практиками розробки (створення npm-пакетів):
-- `lib/` — ядро бібліотеки, що містить усю бізнес-логіку.
-- `demo/` — клієнтський додаток, який імпортує та використовує модулі з `lib`.
+## 📂 Project Structure
 
-## Імплементований функціонал (Лабораторні 1-9)
+The project is strictly separated into a core library and a client implementation, mimicking standard npm package architecture:
 
-* **Генератори та Ітератори:** Створення нескінченних потоків даних та контроль їх виконання за часом.
-* **Мемоїзація (Кешування):** Оптимізація обчислень за допомогою кешу з політикою витіснення LRU (Least Recently Used).
-* **Черга пріоритетів (Priority Queue):** Двонаправлена черга з алгоритмічною складністю O(1) для базових операцій та логікою пріоритетизації.
-* **Асинхронне програмування:** Імплементація паралельної обробки масивів (`asyncMap`) з використанням як сучасних `Promise`, так і `Callbacks`.
-* **Управління подіями (Event Emitter):** Створення власної реактивної системи підписок та обробки подій.
-* **Потоки даних (Streams):** Асинхронна трансляція даних на базі Event Emitter.
-* **Патерн Proxy та Безпека:** Реалізація HTTP-клієнта з автоматичним додаванням та оновленням авторизаційних токенів (AuthProxy).
-* **Патерн Decorator:** Універсальний логгер для відстеження часу та статусу виконання функцій.
-* **AbortController:** Механізм примусової зупинки асинхронних операцій без витоків пам'яті.
+```text
+job-processing-engine/
+├── lib/
+│   └── src/
+│       ├── asyncArray.js   # Promise & Callback async mappers
+│       ├── events.js       # Custom Event Emitter
+│       ├── index.js        # Main module exports
+│       ├── logger.js       # Decorator patterns
+│       ├── proxy.js        # Auth & HTTP Proxy
+│       ├── queue.js        # Priority Queue (O(1) optimization)
+│       ├── stream.js       # Reactive Data Streamer
+│       └── utils.js        # Generators & LRU Cache
+├── demo/
+│   ├── index.js            # Client application implementing the engine
+│   └── package.json
+├── package.json
+└── README.md
+```
 
-## Інструкція із запуску
+## ⚙️ Core Features & API Reference
+1. **Data Structures & Algorithms**
+   * BiDirectionalPriorityQueue (queue.js): A custom queue implementation optimized for O(1) reads using dynamic head tracking and array slicing to prevent memory leaks during high-throughput job processing.
 
-1. Встановіть залежності в папці demo:
-   ```bash
-   cd demo
-   npm install
-   ```
-2. Запустіть демонстраційний файл:
-   ```bash
-   node index.js
-   ```
+   * LRU Cache (utils.js): A memoization wrapper featuring a Least Recently Used (LRU) eviction policy to safely cache expensive operations without exceeding memory limits.
+
+2. **Asynchronous Processing**
+   * Async Array Mappers (asyncArray.js): Custom implementations of parallel array processing supporting both modern Promise and legacy Callback architectures. Includes native AbortController integration for safe termination of pending background jobs.
+
+3. **Reactive Event Streams**
+   * EventEmitter & DataStreamer (events.js, stream.js): A custom pub/sub event system extended into a reactive data streamer, allowing asynchronous data chunks to be emitted and processed with configurable delays.
+
+4. **Design Patterns**
+   * AuthProxy (proxy.js): Structural proxy pattern acting as an interceptor for an HTTP Client. It autonomously handles JWT token verification, injection, and background refreshing without polluting the core HTTP logic.
+   * Execution Logger (logger.js): Structural decorator pattern for wrapping functions to universally track execution status and timestamps.
+   
+## 🚀 Getting Started
+
+   ### Prerequisites
+   * **Node.js** (v18.0.0 or higher recommended)
+
+   ### Installation & Execution
+   1. Navigate to the demo client directory and install dependencies:
+      ```bash
+      cd demo
+      npm install
+      ```
+   2. Run the integration sequence:
+      ```bash
+      node index.js
+      ```
+
+### 📄 License
+This project is licensed under the MIT License.
