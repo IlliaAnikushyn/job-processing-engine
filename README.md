@@ -27,4 +27,4 @@
    cd demo
    npm install
 2. Запустіть демонстраційний файл:
-node index.js
+   node index.js
