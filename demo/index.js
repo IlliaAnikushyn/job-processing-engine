@@ -1,12 +1,24 @@
 import {
     EventEmitter, BiDirectionalPriorityQueue, createLogDecorator,
     BaseHttpClient, AuthProxy, GitHubService, 
-    asyncMapPromise, asyncMapCallback
+    asyncMapPromise, asyncMapCallback,
+    infiniteGenerator, timeoutIterator, memoize
 } from '../lib/src/index.js';
 import { DataStreamer } from '../lib/src/stream.js';
 
 async function runDemo() {
     console.log("=== Job Processing Engine Initialized ===\n");
+
+    console.log("=== Testing Labs 1, 2 & 3 (Generators & LRU Cache) ===");
+    
+    const slowMath = memoize((a, b) => a * b * 1000, 'LRU', 3);
+    console.log(`[Cache] Initial call: ${slowMath(2, 5)}`);
+    console.log(`[Cache] Cached call: ${slowMath(2, 5)}`);
+
+    const limitedGen = timeoutIterator(infiniteGenerator(), 10);
+    let generatedCount = 0;
+    while (!limitedGen.next().done) generatedCount++;
+    console.log(`[Generator] Tasks generated in 10ms: ${generatedCount}\n`);
     
     const queue = new BiDirectionalPriorityQueue();
     queue.enqueue("Task A", 1);
